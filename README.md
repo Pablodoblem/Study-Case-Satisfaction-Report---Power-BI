@@ -37,7 +37,7 @@ Una vez finalizada la importanción de las tablas y su renombramiento, nos decid
 A continuación podemos observar cómo las fechas no tienen el formato deseado.
 Muestra de formato no deseado:
 
-![Recolección de datos](images/5_M_code_new_column.png)
+![Recolección de datos](images/5__M_code_new_column.png)
 
 #### ¿Cómo lo solucionamos?
 Creemos una nueva columna personalizada con el siguiente codigo M dentro del editor de Power Query. 
@@ -64,7 +64,7 @@ Con este código, a pesar de estar ya comentado dentro del mismo, observamos có
 
 Columna personalizada con datos en formato europeo:
 
-![Recolección de datos](images/6_Dat_dataforma_depurated.png)
+![Recolección de datos](images/6_Data_dataforma_depurated.png)
 
 ---
 
@@ -129,7 +129,7 @@ ADDCOLUMNS(
 
 ```
 
-![Recolección de datos](images7._looklike.png)
+![Recolección de datos](images7.1_looklike.png)
 
 #### 3.2 Data Model
 
@@ -137,11 +137,11 @@ A continuación presentamos la vista de modelo que ofrece la aplicación de Powe
 
 Lo primero, dado que contamos con una tabla de fechas estableceremos relación entre la columna "RevDate" (anteriormente creada) con "Date" de la tabla "DimDate".
 
-![Recolección de datos](images/9_connectin_dates.png)
+![Recolección de datos](images/_connectin_dates.png)
 
 Aprovechando que estamoa trabajando con la tabla DimDates vamos a establecer relación entre "HireDate" de la tabla "DimEmployee" y "Date" de la tabla dimensional de fechas.
 
-![Recolección de datos](images/10_conectando_co_hire_date.png)
+![Recolección de datos](images/10_conectando_con_hire_date.png)
 
 Como se puede observar, las tablas que cuentan con un mayor numero de columnas son "DimEmployee", tabla donde se expresan todos los datos y características de cada uno de los trabajadores de la empresa y la tabla de hechos "FactPerformanceRating" donde se recoge el registro de puntuaciones de satisfacción del empleado. Las demás tablas son dimensionales y en su mayoría actuan como leyenda para poder interpretar el valor numérico en distintos campos.
 
@@ -156,6 +156,10 @@ En Power BI tan solo puede tener activa una de estas relaciones. Este hecho no q
 Otra relación que podemos crear es entre las columnas "EducationLevel" de "DinEducationLevel" y "Education" de "DimEmployee"
 
 ![Recolección de datos](images/11_educatio_leve_connected.png)
+
+FInalmente y a continuacion podemos observar cómo ha quedado nuestro modelo de datos:
+
+![Recolección de datos](images/12_datamodel_v1.png)
 
 ---
 
