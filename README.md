@@ -129,7 +129,7 @@ ADDCOLUMNS(
 
 ```
 
-![Recolección de datos](images7.1_looklike.png)
+![Recolección de datos](images/7.1_looklike.png)
 
 #### 3.2 Data Model
 
@@ -149,17 +149,17 @@ Así se conoce el modelo "Snowflake", se deben encontrar relaciones entre la tab
 
 La tabla de hechos, como pudimos abservar, recoge las puntuaciones de satisfacción de los distintos empleados de la empresa. Es por ello por lo que, vamos a tener que relacionar estas columnas con la tabla de "DimSatisfiedLevel", concretamente con la columna "SatisfactionLevel". Por tranto, las colummnas de la tabla de hechos "JobSatisfaction", "ManagerRating", "RelationshipSatisfaction", SelfRating" y "WorkLifeBalance" deben de apuntar a dicha columna.
 
-![Recolección de datos](images/12_satisfactionlevel_different_relationships.png)
+![Recolección de datos](images/12_satisfactionleve_different_relationships.png)
 
 En Power BI tan solo puede tener activa una de estas relaciones. Este hecho no quiere decir que no podamos usar las relaciones creadas entre otras columnas pero deben de ser tratadas mediante otros métodos como el del uso de la funcion en DAX "USERRELATIOSHIP" que veremos más adelante. 
 
 Otra relación que podemos crear es entre las columnas "EducationLevel" de "DinEducationLevel" y "Education" de "DimEmployee"
 
-![Recolección de datos](images/11_educatio_leve_connected.png)
+![Recolección de datos](images/11_education_level_connected.png)
 
 FInalmente y a continuacion podemos observar cómo ha quedado nuestro modelo de datos:
 
-![Recolección de datos](images/12_datamodel_v1.png)
+![Recolección de datos](images/12.1_datamodel_v1.png)
 
 ---
 
