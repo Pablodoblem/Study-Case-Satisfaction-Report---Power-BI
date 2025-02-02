@@ -211,8 +211,6 @@ Medida:
 
 ```
 
-![Recolección de datos](images/15_Active_and_Inactive_employees.png)
-
 Una vez habirendo teniendo las medidas preparadas podremos presentarlas adecuadamente para posteriromente ser analiziadas en nuestro reporte visual.
 
 ![Recolección de datos](images/16_atrittion_rat_with_othe_measures.png)
@@ -221,4 +219,18 @@ Una vez habirendo teniendo las medidas preparadas podremos presentarlas adecuada
 
 ### 5. Primeros objetos visuales
 
+[NOTA] Las siguiente imágenes contienen un error en el objeto visual donde se exhiben las medidas "Total Employees", "Active Employees", "Innactive Employees" y "% Atrittion Rate". Disculpen el error. En las próximas visualizaciones lo verán corregido.
 
+Ahora toca pensar en cómo disponer la información obtenida tras haber sido depurada, relacionada y calculada. En primer lugar queremos poner a disposición del cliente un gráfico de barras verticales apiladas que muestre por fecha el número de empleados contratados. En cada año vamos a querer expresar cuántos de estos empleados que fueron contratados ya no se encuentran trabajando el la compañía frente a los que continuan en activo. Para ello Seleccionaremos el objeto visual "Gráfico decolumnas apiladas" y haremos uso de la columna "Date" de la tabla "DimDate" y la relacionalremos con la columna "TotalEmployee" de la tabla "DimEmployee". 
+
+![Recolección de datos](images/17-stacked-column-graph-no-relationship.gif)
+
+Como podemos observar, el gráfico se presenta de manera errónea. Los valores de cada uno de las unidades de tiempo representados en el eje "y" son equivalentes pudiendo comprobar que hay un error en las relaciones. Como pudimos ver en el la vista de modelo, la relación que establecimos entre la tabla "DimDate" y "DimEmployee" se encuentra representada con una línea de puntos discontínua. Esto se debe a que es una relación que no se encuentra activa. Anteriormente ya hablamos de la utilidad de la función USERRELATIONSHIP para poder "activar" esta relación para una medida en concreto. Es por ello por lo que la volveremos a usar para esta ocasión elaborando otra medida. 
+
+Esta medida que añadiremos a la tabla "_Measures" realizará un recuento de los empleados utilizando la columna "EmployeeID" en función de la fecha de contrratación. De esta manera podremos mostrar de manera efectiva la información que buscamos. 
+
+Por último y para poder ver cuántos empleados dentro del recuento total siguen activos o no emplazaremos la columna "Atrittion" de la tabla "DimEmployee" en el campo del ombjeto visual llamado "Leyenda". Así podremos ver con colores diferenciados las distintas distribuciones. 
+
+![Recolección de datos](images/17.2-fixing-the-visual-and-adding-atrittion.gif)
+
+[OBSERVACIÓN] La tabla "DimDate" fue creada para poder contar con una jerarquía. La jerarquía es un sistema por el cual PowerBI te permite poder establecer relaciones verticales de mayor a menor granularidad. Esto permite poder hacer "Drill" un concepto que hace referencia a "indagar" dentro de la información macro a la micro. Es un aspecto muy útil a la hora de hacer reportes dado que perrmite al cliente poder explorar información al detalle sin encesidad de crear varios objetos visuales para el mismo objetivo.
