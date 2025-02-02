@@ -248,3 +248,11 @@ Resulta también interesante plantear la necesidad de crear un objeto visual que
 Una vez habiendo obtenido este resultado vamos a asignar como leyenda de columna "JobRole" de la tabla "DimEmployee" para poder diferenciar las distintas distribuciones. También vamos a modificar el gráficopara que quede a nuestro gusto.
 
 ![Recolección de datos](images/19.1_improovedchart.png)
+
+---
+
+## 2. ReportDesgn
+---
+## 3. Preparación para compartir el informe
+---
+## 4. Compartiendo el informe con tus stakeholders
