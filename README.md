@@ -37,7 +37,7 @@ Una vez finalizada la importanción de las tablas y su renombramiento, nos decid
 A continuación podemos observar cómo las fechas no tienen el formato deseado.
 Muestra de formato no deseado:
 
-![Recolección de datos](images/5__M_code_new_column.png)
+![Recolección de datos](images/5__code_new_column.png)
 
 #### ¿Cómo lo solucionamos?
 Creemos una nueva columna personalizada con el siguiente codigo M dentro del editor de Power Query. 
@@ -64,7 +64,7 @@ Con este código, a pesar de estar ya comentado dentro del mismo, observamos có
 
 Columna personalizada con datos en formato europeo:
 
-![Recolección de datos](images/6_Data_dataforma_depurated.png)
+![Recolección de datos](images/6_Data_format_depurated.png)
 
 ---
 
@@ -165,7 +165,57 @@ FInalmente y a continuacion podemos observar cómo ha quedado nuestro modelo de 
 
 ### 4. Medidas
 
-Comencemos a pensar en qué medidas vamos a necesitar realizar. Una vez habiendo 
+Comencemos a pensar en qué medidas vamos a necesitar en nuestro análisis. Atendiendo a los objetivos que hemos descrito con anterioridad tratadermos de crear las siguientes:
+
+- TotalEmployees = Muestra la cantidad de empleados totales
+- ActiveEmployees = Muestra la cantidad total de empleados que aún siguen en la empresa activamente
+- InactiveEmployees = Muestra la cantidad total de empleados que ya no siguen en la empresa
+- % Atrittion Rate = Tasa de "abandono" de empleados. (Traducción literal: desgaste)
+
+Para poder tener una mejor organización de nuestro proyecto, crearemos una tabla vacía llamada "_Measures" donde almacenaremos las medidas.
+A continuación mostramos la creación de la tabla junto a su consiguiente mensaje de error causado por no haber indicado ningún tipo de contenido. Obviaremos ese error dado que usaremos esta tabla tan solo como "directorio" de las medidas que usaremos en nuestro report.
+
+![Recolección de datos](images/13_tabla_measures.png)
+
+#TotalEmployees
+
+Para realizar esta medida hacemos uso de la función DISTINCTCOUNT. Esta función nos ofrece la posibilidad de contar los valores únicos dentro de una columna a especificar como primer y único argumento así que emplearemos la columna "EmployeeID" dentro de la columna "DimEmployee" dado que el ID es el número que identifica a cada empleado.
+
+```DAX
+TotalEmployees = DISTINCTCOUNT(DimEmployee[EmployeeID])
+```
+
+![Recolección de datos](images/14_measure_TotalEmployees.png)
+
+#ActiveEmployees e InactiveEmployees
+
+Como sabemos, para poder detectar los empleados activos dentro de la empresa debemos de filtrar aquellas filas en cuya columna "Atrittion" tenga como valor "No". Para poder hacer un uso de una función de recuento como puede ser la función COUNT aplicando un filtrado de los resultados podemos usar la función CALCULATE. Gracias a funciones como CALCULATE podemos realizar una operación con filtros aplicados a los resultados. De esta manera haremos un recuento del total de empleados que gracias al filtro aplicado como segundo argumento, se encuentran en activo.
+
+Medida:
+
+```DAX
+ActiveEmployees = CALCULATE(COUNT(DimEmployee[Attrition]), DimEmployee[Attrition] = "No") 
+
+```
+
+![Recolección de datos](images/15_Active_and_Inactive_employees.png)
+
+#% Atrittion Rate
+
+Para esta medida debemos de hallar el porcentaje de empleados inactivos frente al total. Para ello acudiremos al siguiente código. Para esta medida no hará falta hacer uso de ninguna funciónn DAX.
+
+Medida:
+
+```DAX
+% Atrittion Rate = ([InactiveEmployees] / [TotalEmployees]) * 100
+
+```
+
+![Recolección de datos](images/15_Active_and_Inactive_employees.png)
+
+Una vez habirendo teniendo las medidas preparadas podremos presentarlas adecuadamente para posteriromente ser analiziadas en nuestro reporte visual.
+
+![Recolección de datos](images/16_atrittion_rat_with_othe_measures.png)
 
 ---
 
