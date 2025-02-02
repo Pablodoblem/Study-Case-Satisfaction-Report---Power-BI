@@ -13,9 +13,11 @@ En el equipo directivo de la compañia de Atlas Lab buscan tener mayor visibilid
 
 ---
 
-## Pasos del Proceso
+# Pasos del Proceso
 
-## 1. Recolección de Datos
+## 1. Creación y análisis del modelo de datos
+
+## 1.1 Recolección de Datos
 
 Como en todo análisis, comenzaremos con la importación de los archivos csv con los que trabajaremos. A continuación mostramos las tablas "Employee", "RatingLevel", "SatisfiedLevel", "EducationLevel" y "PerformanceRating":
 
@@ -30,7 +32,7 @@ Como podemos observar, las tablas están bastante sanas. Tan solo debemos adapta
 ---
 
 
-## 2. Limpieza de Datos
+## 1.2 Limpieza de Datos
 
 Una vez finalizada la importanción de las tablas y su renombramiento, nos decidimos a modelar los datos de manera que se muestren de una manera coherente y sólida para luego poder tratar las relaciones en la vista de modelo. Tras revisar los datoss nos encontramos con la necesidad de covertir la columna "ReviewDate" de la table "FactPerformaceRating". Como se puede apreciar observamos que los números de la fecha se ven expresados en ocasiones como un número de una sola cifra. Esto no debería de ser un problema dado que al cambiar de tipo de dato a "Date" debería interpretarlo sin mayor problema. El problema que he experimentado yo es que el formato de fecha según mi pais es dia/mes/año por lo que debo expresar las mismas fechas en una columna personalizada pero de manera ordenada. También aprovecharé esta ocasión para desarrollar un código que poder utilizar en futuras ocasiones y que consiga convertir los números que tan solo tienen una cifra en unos que cuenten con dos añadiendo un 0 delante. 
 
@@ -68,13 +70,13 @@ Columna personalizada con datos en formato europeo:
 
 ---
 
-## 3. Metodología Kimball
+## 1.3 Metodología Kimball
 
 En esta ocasión trataremos de adoptar el modelo Snowflake ideado por Kimball dado su gran eficiencia y popularidad. Por ello trataremos de buscar qué tablas van a ser consideradas como tablas dimensionales y tabla de hechos y renombraremos cada tabla con el prefijo "Dim-" o "Fact-" en función de su tipología. A continuación se muestra la categorización propuesta:
 
 ![Recolección de datos](images/3.png)
 
-#### 3.1 Tablas adicionales
+#### 1.3.1 Tablas adicionales
 
 Como es práctica común haremos inclusión de una tabla de fechas. Para ello hemos importado mediante el siguiente código la tabla DimDate al modelo. Gracias a esta tabla podremos relacionar todas las fechas dispuestas en la tabla de hechos con la tabla DimDate pudiendo manejar así los datos de una manera limpia y ordenada. 
 
@@ -131,7 +133,7 @@ ADDCOLUMNS(
 
 ![Recolección de datos](images/7.1_looklike.png)
 
-#### 3.2 Data Model
+#### 1.3.2 Data Model
 
 A continuación presentamos la vista de modelo que ofrece la aplicación de Power BI donde tan solo con la importación se ha creado automáticamente una relación activa. Esta relación conecta la columna "DimEmployee" y "FactPerformanceRating" mediante la columna "EmployeeID". Esto se debe a que Power BI trata de hacer relaciones automáticas lo cual puede presentar problemas si no se hacen las relaciones de la manera adecuada. En este caso no ocasiona ningún conflicto sino lo contrario. Aun así quedan aún muchas relaciones por hacer para poder conformar el modelo de SnowFlake. 
 
@@ -163,7 +165,7 @@ FInalmente y a continuacion podemos observar cómo ha quedado nuestro modelo de 
 
 ---
 
-### 4. Medidas
+### 1.4 Medidas
 
 Comencemos a pensar en qué medidas vamos a necesitar en nuestro análisis. Atendiendo a los objetivos que hemos descrito con anterioridad tratadermos de crear las siguientes:
 
@@ -217,11 +219,11 @@ Una vez habirendo teniendo las medidas preparadas podremos presentarlas adecuada
 
 ---
 
-### 5. Primeros objetos visuales
+### 1.5 Primeros objetos visuales
 
 [NOTA] Las siguiente imágenes contienen un error en el objeto visual donde se exhiben las medidas "Total Employees", "Active Employees", "Innactive Employees" y "% Atrittion Rate". Disculpen el error. En las próximas visualizaciones lo verán corregido.
 
-#### 5.1 Distribución y proporción de contrataciones en el tiempo
+#### 1.5.1 Distribución y proporción de contrataciones en el tiempo
 
 Ahora toca pensar en cómo disponer la información obtenida tras haber sido depurada, relacionada y calculada. En primer lugar queremos poner a disposición del cliente un gráfico de barras verticales apiladas que muestre por fecha el número de empleados contratados. En cada año vamos a querer expresar cuántos de estos empleados que fueron contratados ya no se encuentran trabajando el la compañía frente a los que continuan en activo. Para ello Seleccionaremos el objeto visual "Gráfico decolumnas apiladas" y haremos uso de la columna "Date" de la tabla "DimDate" y la relacionalremos con la columna "TotalEmployee" de la tabla "DimEmployee". 
 
@@ -237,7 +239,7 @@ Por último y para poder ver cuántos empleados dentro del recuento total siguen
 
 [OBSERVACIÓN] La tabla "DimDate" fue creada para poder contar con una jerarquía. La jerarquía es un sistema por el cual PowerBI te permite poder establecer relaciones verticales de mayor a menor granularidad. Esto permite poder hacer "Drill" un concepto que hace referencia a "indagar" dentro de la información macro a la micro. Es un aspecto muy útil a la hora de hacer reportes dado que perrmite al cliente poder explorar información al detalle sin encesidad de crear varios objetos visuales para el mismo objetivo.
 
-#### 5.2 Empleados de la empresa según departamento y JobRole
+#### 1.5.2 Empleados de la empresa según departamento y JobRole
 
 Resulta también interesante plantear la necesidad de crear un objeto visual que muestre la distribución de empleados dentro de los tres departamentos existentes, "Tecnology", "Sales" y "Human Resources". Para ello haremos uso del gráfico de barras donde relacionaremos la columna "Department" con la medida "ActiveEmployees". De esta manera podemos ver la distribución real de los empleados que se encuentran activos dentro de la empresa. 
 
