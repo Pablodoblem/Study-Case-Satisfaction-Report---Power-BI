@@ -177,7 +177,7 @@ A continuación mostramos la creación de la tabla junto a su consiguiente mensa
 
 ![Recolección de datos](images/13_tabla_measures.png)
 
-#TotalEmployees
+##TotalEmployees
 
 Para realizar esta medida hacemos uso de la función DISTINCTCOUNT. Esta función nos ofrece la posibilidad de contar los valores únicos dentro de una columna a especificar como primer y único argumento así que emplearemos la columna "EmployeeID" dentro de la columna "DimEmployee" dado que el ID es el número que identifica a cada empleado.
 
@@ -187,7 +187,7 @@ TotalEmployees = DISTINCTCOUNT(DimEmployee[EmployeeID])
 
 ![Recolección de datos](images/14_measure_TotalEmployees.png)
 
-#ActiveEmployees e InactiveEmployees
+##ActiveEmployees e InactiveEmployees
 
 Como sabemos, para poder detectar los empleados activos dentro de la empresa debemos de filtrar aquellas filas en cuya columna "Atrittion" tenga como valor "No". Para poder hacer un uso de una función de recuento como puede ser la función COUNT aplicando un filtrado de los resultados podemos usar la función CALCULATE. Gracias a funciones como CALCULATE podemos realizar una operación con filtros aplicados a los resultados. De esta manera haremos un recuento del total de empleados que gracias al filtro aplicado como segundo argumento, se encuentran en activo.
 
@@ -200,7 +200,7 @@ ActiveEmployees = CALCULATE(COUNT(DimEmployee[Attrition]), DimEmployee[Attrition
 
 ![Recolección de datos](images/15_Active_and_Inactive_employees.png)
 
-#% Atrittion Rate
+##% Atrittion Rate
 
 Para esta medida debemos de hallar el porcentaje de empleados inactivos frente al total. Para ello acudiremos al siguiente código. Para esta medida no hará falta hacer uso de ninguna funciónn DAX.
 
@@ -221,6 +221,8 @@ Una vez habirendo teniendo las medidas preparadas podremos presentarlas adecuada
 
 [NOTA] Las siguiente imágenes contienen un error en el objeto visual donde se exhiben las medidas "Total Employees", "Active Employees", "Innactive Employees" y "% Atrittion Rate". Disculpen el error. En las próximas visualizaciones lo verán corregido.
 
+#### 5.1 Distribución y proporción de contrataciones en el tiempo
+
 Ahora toca pensar en cómo disponer la información obtenida tras haber sido depurada, relacionada y calculada. En primer lugar queremos poner a disposición del cliente un gráfico de barras verticales apiladas que muestre por fecha el número de empleados contratados. En cada año vamos a querer expresar cuántos de estos empleados que fueron contratados ya no se encuentran trabajando el la compañía frente a los que continuan en activo. Para ello Seleccionaremos el objeto visual "Gráfico decolumnas apiladas" y haremos uso de la columna "Date" de la tabla "DimDate" y la relacionalremos con la columna "TotalEmployee" de la tabla "DimEmployee". 
 
 ![Recolección de datos](images/17-stacked-column-graph-no-relationship.gif)
@@ -234,3 +236,13 @@ Por último y para poder ver cuántos empleados dentro del recuento total siguen
 ![Recolección de datos](images/17.2-fixing-the-visual-and-adding-atrittion.gif)
 
 [OBSERVACIÓN] La tabla "DimDate" fue creada para poder contar con una jerarquía. La jerarquía es un sistema por el cual PowerBI te permite poder establecer relaciones verticales de mayor a menor granularidad. Esto permite poder hacer "Drill" un concepto que hace referencia a "indagar" dentro de la información macro a la micro. Es un aspecto muy útil a la hora de hacer reportes dado que perrmite al cliente poder explorar información al detalle sin encesidad de crear varios objetos visuales para el mismo objetivo.
+
+#### 5.2 Empleados de la empresa según departamento y JobRole
+
+Resulta también interesante plantear la necesidad de crear un objeto visual que muestre la distribución de empleados dentro de los tres departamentos existentes, "Tecnology", "Sales" y "Human Resources". Para ello haremos uso del gráfico de barras donde relacionaremos la columna "Department" con la medida "ActiveEmployees". De esta manera podemos ver la distribución real de los empleados que se encuentran activos dentro de la empresa. 
+
+![Recolección de datos](images/18_Active_Employees-Departments_barchart.png)
+
+Una vez habiendo obtenido este resultado vamos a asignar como leyenda de columna "JobRole" de la tabla "DimEmployee" para poder diferenciar las distintas distribuciones. También vamos a modificar el gráficopara que quede a nuestro gusto.
+
+![Recolección de datos](images/19.1_improovedchart.png)
