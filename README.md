@@ -249,6 +249,58 @@ Una vez habiendo obtenido este resultado vamos a asignar como leyenda de columna
 
 ![Recolección de datos](images/19.1_improovedchart.png)
 
+#### 1.5.3 Estudio demográfico de empleados
+
+Ahora crearemos otra página dentro de nuestro reporte. Vamos a realizar un estudio acerca de la edad, etnia y género delos empleados de la empresa. Lo primero que haremos tras crear la página en blanco es disponer en dos tarjeas la edad máxiam y mínima entre todos los empleados de la empresa. Para ello podemos hacer uso de la columna "Age" dntro de la tabla "DimEmployee". 
+
+![Recolección de datos](images/20_demographic_data.png)
+![Recolección de datos](images/20.1_younger_oldest.png)
+
+En segundo lugar resultaría interesante hacer un recuento de empleados por franjas de edad. Para ello vamos a irr a Power Query para agregar una columna personalizada. Allí tendremos que hacer uso del lenguaje M. La expresión será la siguiente:
+
+```DAX
+AgeDim = [Age] - Number.Mod([Age], 10)
+
+```
+
+![Recolección de datos](images/20.2_AgeDim.png)
+![Recolección de datos](images/20.3_columnsAgeDim.png)
+
+
+De esta manera podremos conseguir asignar los empleados en franjas de 10 años pudiendo hacer así una vista más fácil de la dicha distribución.
+Ya que ahora contamos con la columna "AgeDim" vamos hacer uso de ella mostrándola en un gráfico de barras apiladas. Seleccionaremos como dijimos "AgeDim" para el eje X y "TotalEmployees" para el eje Y. Reajustaremos el tamaño acorde con nuestro tamaño de liezo.
+
+![Recolección de datos](images/21_AgeDimChart.gif)
+
+Como siguiente paso, aprovechando que hemos seleccionado el objeto visual de columnas apiladas vamos a colocar en el campo "leyenda" la columna o dimensión "Gender" para poder comprender mejor la distribución seguún género dentro de las distintas franjas de edad. 
+
+A continuación, queremos poder visualizar los datos de aquellos empleados que aún se encuentran en la empresa. Para ello y como hicimos en ocasiones anteriores tenemos dos posibles opciones. La primera opción podría ser asignar un filtro a nivel de página para que todos los objetos visuales o al menos el gráfico de barras fuera afectado porr dicho filtro. La segunda opción en cambio pasaría por añadir un elemento visual de segmentación donde se pudiese filtrar o seleccionar en función de los valores de "Atrittion". Nosotros eligiremos la segunda opción. Para ello y como podemos ver en la imagen añadiremos una pequeña segmentación y finalmente reorganizaremos los elementos para tener uuna mejor disposición de los datos. 
+
+![Recolección de datos](images/22_genderSegmentation_1.gif)
+
+Resultado final trashacer reajustes de apariencia:
+
+![Recolección de datos](images/23_final_result_demography.png)
+
+Complementariamente vemos interesante aprovechar otro dato recogido dentro de "DimEmployee" que es "MarritalStatus". Queremos mostrar al mismo tiempo qué distribución tiene cada grupo en función de su estado civil. Para ello elejiremos un gráfico de sectores. En él simplemente emplazaremos el campo "MaritalStatus" y adaptaremos el tamaño para que quede estético dentro de nuestro reporte.
+
+![Recolección de datos](images/24_marriage_demo_1.gif)
+
+Como último dato a prredisponer consideramos de interés poder mostrar el salario anual medio para poder realizar observaciones a lo largo y ancho de la pestaña de demografía. Para ello crearemos una medida como ya hicimos anteriormente en la talba "_Measures" donde usaremos el siguiente código:
+
+```DAX
+AVGSalary = AVERAGE(DimEmployee[Salary])
+
+```
+Para seguir profundizando vamos a analizarlas varianzas del salario anual en función de la étnia. Para ello lo que vamos a hacer es, en una segunda pestaña que habilitaremos para trrabajar de una manera más cómoda, seleccionar la opción de gráfico de columnas agrupadas y asignaremos al eje de las X la columna "Ethnicity" y para los valores del eje Y nuestra recien creada medida "AVGSalary". De esta manera el gráfico nos va a poder mostrar el salario medio por étnias.
+
+![Recolección de datos](images/25_salary_by_ethnicity.gif)
+
+El gráfico como podemos observar muestra varianzas pero no podemos apreciarlas debidamente dado que el rango de valores dentro del eje de la Y es demasiado amplio. Con el objetivo de observar mejor las diferencias salariales vamos a hacer que el valor mínimo mostrado en el eje de la Y sea 100.000. De esta manera y como se muestra en la imágen podremos ver más claramente las direferencias. 
+
+![Recolección de datos](images/25.1_range_adjustment.gif)
+ 
+
 ---
 
 ## 2. ReportDesgn
