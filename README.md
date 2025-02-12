@@ -308,7 +308,7 @@ Gracias a este reajuste podremos percibir con mayor claridad la diferencia salar
 
 Tras haber hecho un desglose de los aspectos demográficos vamos a presentar las calificaciones obtenidas por la empresa de cada uno de los empleados para poder determinar las tendencias. Para ello, vamos a ir a PowerQuery dado que no existe una columna que nos facilite el nombre completo del empleado. Con este fin, nos dispondremos a crear una columna personalizada que haga una combinación de "Name" y "sername". La columna se llamará "FullName". 
 
-![Recolección de datos](images/27_fullname_column.gif)
+![Recolección de datos](images/27_fullname_column_1.gif)
 
 
 Tras obtener esta columna personalizada vamos a hacer uso de ella en una tabla. El objetivo es tener una lista alfabéticamente ordenada de todos los empleados de la empresa. De esa esta manera, se podrá ir haciendo observaciones particulares. Esta página del informe podría ser de gran utilidad para el departamento de RRHH de cara a poder diseñar nuevas medidas para mejorar el desempeño de los empleados.
@@ -328,11 +328,11 @@ A continuación elaboraremos tantas medidas como aspectos evaluados dentro de la
 
 A continuación vamos a ver la medida de "JobSatisfaction" dentro de la  tabla "_Measures". 
 
-![Recolección de datos](images/31_jobsatisfaction.png)
+![Recolección de datos](images/31_jobstatisfaction.png)
 
 Sin embargo las siguientes medidas han de hacer uso de la función "USERRELATIONSHIP" como se muestra a continuación:
 
-![Recolección de datos](images/32_enviromentalSatisfaction.png)
+![Recolección de datos](images/32_enviromentalSatisfactionLevel.png)
 
 En ambos casos queremos calcular el puntuación promedo para poder tener una visión general de la puntuación de la empresa.
 
