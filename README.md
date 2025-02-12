@@ -300,6 +300,47 @@ El gráfico como podemos observar muestra varianzas pero no podemos apreciarlas 
 
 ![Recolección de datos](images/25.1_range_adjustment.gif)
  
+Gracias a este reajuste podremos percibir con mayor claridad la diferencia salarial. Para Dar por finalizada esta pagina de nuestro informe reubicaremos los elementos visuales para que puedan verse presentados de manera clara. A continuación se muestra el resultado final de la página "Datos Demográficos"
+
+![Recolección de datos](images/26_final_result_ethnicity.gif)
+
+#### 1.5.4 Estudio de los noveles de satisfacción
+
+Tras haber hecho un desglose de los aspectos demográficos vamos a presentar las calificaciones obtenidas por la empresa de cada uno de los empleados para poder determinar las tendencias. Para ello, vamos a ir a PowerQuery dado que no existe una columna que nos facilite el nombre completo del empleado. Con este fin, nos dispondremos a crear una columna personalizada que haga una combinación de "Name" y "sername". La columna se llamará "FullName". 
+
+![Recolección de datos](images/27_fullname_column.gif)
+
+
+Tras obtener esta columna personalizada vamos a hacer uso de ella en una tabla. El objetivo es tener una lista alfabéticamente ordenada de todos los empleados de la empresa. De esa esta manera, se podrá ir haciendo observaciones particulares. Esta página del informe podría ser de gran utilidad para el departamento de RRHH de cara a poder diseñar nuevas medidas para mejorar el desempeño de los empleados.
+
+A continuación en la misma tabla vamos a adjuntar la fecha de contratación de cada empleado. Para ello seleccionaremos "HireDate" dentro de la tabla "DimEmployee". Nota: Podemos seleccionar el formato de visualización de esta fecha dentro del panel de configuración de la misma columna.
+
+Además queremos crear en esta misma vista del informe un conjunto de objetos visuales que muestren la última evaluación efectuada a cada empleado. Para ello debemos de procurar usar los datos de "RevDate" dentro de la tabla "FactPerformanceRating" de manera que el formato de la fecha sea "dd/mm/yyyy" acorde con los estándares marcados por la empresa. Nota: En caso de que no exista registro alguna a causa de no haber realizado todavía ninguna revisión se debe de exhibir "Sin revisar". Es por ello por lo que nuestro cálculo tomará el siguiente aspescto:
+
+![Recolección de datos](images/30.2_ensure_blanck_cases.png)
+
+En conjunto con esta tarjeta queremos crear otra que exponga la fecha de la siguiente revisión de cada empleado. Para ello crearemos esta otra medida llamada "NextReviewDate" donde en aquellos casos en los que no ha habido revisión todavía, se tomará como fecha la fecha de contratación. Cabe decir que las revisiones marcadas por la empresa son cada 365 días o dicho de otra manera, cada año desde el momento en el que el empleado efectuó última evaluación.
+A continuación veremos la medida:
+
+![Recolección de datos](images/30.3_nextreviewdate.png)
+
+A continuación elaboraremos tantas medidas como aspectos evaluados dentro de la empresa, en concreto los siguientes: "WorkLifeBalance", "EnvirmoentalSatisfaction", "RelationshipSatisfaction" y "JobSatisfaction". Estos van a compartir una estructura similar dado que recordemos, las puntuaciones son compartidas y recogidas dentro de "SatisfactionLevel". Como hicimos en el apartado donde relacionabamos las tablas de nuestro informe, pudimos ver cómo algunas de las relaciones habían sido desactivadas. Esto se debe a que en PowerBI tan solo puede existir una relación activa entre dos columnas de distintas tablas. No obstante esto no significa que no se pueda hacer uso de las inactivas. Anteriormente hemos podido comprobar que con la función "USERRELATIONSHIP" se pueden usar ex-profeso. 
+
+A continuación vamos a ver la medida de "JobSatisfaction" dentro de la  tabla "_Measures". 
+
+![Recolección de datos](images/31_jobsatisfaction.png)
+
+Sin embargo las siguientes medidas han de hacer uso de la función "USERRELATIONSHIP" como se muestra a continuación:
+
+![Recolección de datos](images/32_enviromentalSatisfaction.png)
+
+En ambos casos queremos calcular el puntuación promedo para poder tener una visión general de la puntuación de la empresa.
+
+Por último crearemos un gráfico donde se pueda observar las puntuaciones obtenidas según el criterio del empleado a lo largo de su relación laboral. Por ello hemos querido hacer uso del objeto visuual "Gráfico de áreas". También hemos querido mostrar otras dos columnas más llamadas "SelfRating" y "ManagerRating" qque hacen referencia en orden de mención a una autoevaluación así como la nota que ha recibido el empleado por parte de su supervisor. La estructura de estas dos últimas medidas son idénticas a las anteriores por lo que no vamos a volver a mostrar la estructura de nuevo. 
+
+Tras trabajar en la disposición de los elementos dentro del informe finalmente obtenemos un resultado preliminar parecido al siguiente:
+
+![Recolección de datos](images/33_scoregraph.png)
 
 ---
 
